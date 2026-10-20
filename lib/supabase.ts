@@ -1,7 +1,17 @@
+
 import { createClient } from "@supabase/supabase-js";
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey =
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-// App tetap bisa dicoba tanpa Supabase; simpan jawaban akan aktif setelah env diisi.
-export const supabase = url && key ? createClient(url, key) : null;
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error(
+    "Konfigurasi Supabase belum diisi. Periksa environment variables."
+  );
+}
+
+export const supabase = createClient(
+  supabaseUrl,
+  supabaseKey
+);
