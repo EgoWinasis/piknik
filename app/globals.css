@@ -857,3 +857,227 @@ footer {
 }
 
 
+
+/* ==================================
+   OPENING ROMANTIS - TAMAN BUNGA
+================================== */
+
+.flower-opening {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 24px;
+  background:
+    radial-gradient(ellipse at 50% 35%, #ffffffd9, transparent 58%),
+    linear-gradient(145deg, #fff1f5, #ffe1eb 52%, #f9e8f3);
+}
+
+.opening-glow {
+  position: absolute;
+  width: 75vw;
+  height: 75vw;
+  max-width: 650px;
+  max-height: 650px;
+  border-radius: 50%;
+  background: #ffc0cb55;
+  filter: blur(65px);
+  animation: openingGlow 5s ease-in-out infinite alternate;
+}
+
+.opening-flower-garden {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.opening-flower {
+  position: absolute;
+  top: -12%;
+  opacity: 0;
+  font-size: clamp(24px, 4vw, 44px);
+  animation-name: openingPetalFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.flower-pos-0 { left: 4%; }
+.flower-pos-1 { left: 20%; }
+.flower-pos-2 { left: 37%; }
+.flower-pos-3 { left: 57%; }
+.flower-pos-4 { left: 76%; }
+.flower-pos-5 { left: 92%; }
+
+.opening-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  color: #754453;
+  animation: openingContentRise 1.2s ease both;
+}
+
+.opening-eyebrow {
+  display: inline-block;
+  margin-bottom: 22px;
+  color: #b56b83;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+}
+
+.opening-bouquet {
+  margin-bottom: 22px;
+  font-size: clamp(25px, 5vw, 43px);
+  line-height: 1.65;
+  filter: drop-shadow(0 8px 12px #e9a6bf66);
+  animation: openingBouquetFloat 3s ease-in-out infinite;
+}
+
+.opening-content h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(34px, 7vw, 58px);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.opening-content h1 em {
+  color: #c45d7b;
+  font-weight: 400;
+}
+
+.opening-content p {
+  margin: 22px 0;
+  color: #956b79;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.opening-divider {
+  margin: 18px 0 24px;
+  color: #c45d7b;
+}
+
+.opening-divider span {
+  margin: 0 12px;
+}
+
+.opening-button {
+  padding: 15px 30px;
+  border: 1px solid #e5a5b7;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #d66e8c, #b94d70);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 10px 28px #c45d7b40;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.opening-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px #c45d7b55;
+}
+
+.opening-footer {
+  display: block;
+  margin-top: 24px;
+  color: #ad8190;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.music-toggle {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 1000;
+  padding: 11px 17px;
+  border: 1px solid #f0c6d3;
+  border-radius: 999px;
+  background: #fff7fa;
+  color: #a94f6c;
+  cursor: pointer;
+  box-shadow: 0 5px 20px #75445318;
+}
+
+@keyframes openingPetalFall {
+  0% {
+    transform: translate3d(0, -5vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  85% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate3d(65px, 115vh, 0) rotate(400deg);
+    opacity: 0;
+  }
+}
+
+@keyframes openingBouquetFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes openingGlow {
+  from {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes openingContentRise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .opening-content h1 {
+    font-size: 36px;
+  }
+
+  .opening-content p {
+    font-size: 12px;
+  }
+
+  .opening-button {
+    padding: 14px 24px;
+  }
+
+  .opening-eyebrow {
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opening-flower,
+  .opening-glow,
+  .opening-bouquet,
+  .opening-content {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+  }
+}
