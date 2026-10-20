@@ -265,7 +265,7 @@ export default function Home() {
 
             <div className="opening-bouquet" aria-hidden="true">
               <div>🌹 🌷 🌸 🌹 🌼</div>
-              <div>🌷 💐 🌺 🪻 🌹</div>
+              <div>🌷 💐 🌺 🌸 🌹</div>
             </div>
 
             <h1>
