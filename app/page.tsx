@@ -138,53 +138,58 @@ export default function Home() {
     );
   };
 
-  async function submitAnswer() {
-    if (activities.length === 0) {
-      setNote("Pilih minimal satu kegiatan dulu yaa 🥺");
+  
+
+async function submitAnswer() {
+  if (activities.length === 0) {
+    setNote("Pilih minimal satu kegiatan dulu yaa 🥺");
+    return;
+  }
+
+  if (!supabase) {
+    setNote(
+      "Koneksi Supabase belum tersedia. Periksa konfigurasi environment."
+    );
+    return;
+  }
+
+  setSaving(true);
+  setNote("");
+
+  try {
+    const { error } = await supabase
+      .from("picnic_responses")
+      .insert({
+        guest_name: name.trim() || "Tamu misterius",
+        accepted: true,
+        preferred_date: date || null,
+        preferred_place: place || "Hutan Pinus",
+        activities: activities,
+      });
+
+    if (error) {
+      console.error("Gagal menyimpan RSVP:", error);
+
+      setNote(`Gagal menyimpan: ${error.message}`);
       return;
     }
 
-    setSaving(true);
-    setNote("");
+    setSaved(true);
+    setNote("Jawaban berhasil disimpan ke database! 💗");
+  } catch (error) {
+    console.error("Terjadi kesalahan:", error);
 
-    try {
-      if (supabase) {
-        const { error } = await supabase
-          .from("picnic_responses")
-          .insert({
-            guest_name: name.trim() || "Tamu misterius",
-            accepted: true,
-            preferred_date: date || null,
-            preferred_place: "Hutan Pinus",
-            activities: activities,
-          });
-
-        if (error) {
-          console.error("Gagal menyimpan RSVP:", error);
-
-          setNote(
-            "Belum berhasil disimpan ke Supabase. Periksa tabel, kolom activities, dan policy SQL."
-          );
-
-          return;
-        }
-
-        setSaved(true);
-      } else {
-        setSaved(true);
-
-        setNote(
-          "Mode demo: jawaban belum masuk database. Isi .env.local untuk mengaktifkan Supabase."
-        );
-      }
-    } catch (error) {
-      console.error("Terjadi kesalahan:", error);
-
-      setNote("Terjadi kesalahan. Coba lagi sebentar ya 🌷");
-    } finally {
-      setSaving(false);
-    }
+    setNote(
+      error instanceof Error
+        ? `Terjadi kesalahan: ${error.message}`
+        : "Terjadi kesalahan. Coba lagi ya 🌷"
+    );
+  } finally {
+    setSaving(false);
   }
+}
+
+
 
   return (
     <main className="page-shell">
